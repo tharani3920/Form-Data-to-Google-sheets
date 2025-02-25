@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/a/a3/Favicon.ico">
+    <title>Submit Data to Google Sheets</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="form-div">
+        <h2>Submit Your Details</h2>
+    <form id="myForm">
+        <input type="text" name="name" placeholder="Enter Name*" required />
+        <input type="email" name="email" placeholder="Enter Email*" required />
+        <textarea name="message" placeholder="Your Message"></textarea>
+        <button type="submit">Submit</button>
+    </form>
+    <p id="responseMessage"></p>
+
+    </div>
+
+
+    <script>
+        document.getElementById("myForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let form = event.target;
+            let formData = new FormData(form);
+
+            fetch("https://script.google.com/macros/s/AKfycbwExX0x79meotjlT4QD80PbQljyR5hQw93RejInA-yQwTfpAncBDAzrBNEoWDAP8BQWWQ/exec", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.text()) 
+            .then(data => {
+                alert("Data submitted successfully!");
+                document.getElementById("responseMessage").innerText = data;
+                form.reset();
+            })
+            .catch(error => {
+                alert("Error submitting data!");
+                console.error("Error:", error);
+            });
+        });
+    </script>
+
+</body>
+</html>
