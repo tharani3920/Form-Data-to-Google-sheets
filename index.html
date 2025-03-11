@@ -12,38 +12,42 @@
 
     <div class="form-div">
         <h2>Submit Your Details</h2>
-    <form id="myForm">
-        <input type="text" name="name" placeholder="Enter Name*" required />
-        <input type="email" name="email" placeholder="Enter Email*" required />
-        <textarea name="message" placeholder="Your Message"></textarea>
-        <button type="submit">Submit</button>
-    </form>
-    <p id="responseMessage"></p>
-
+        <form id="myForm">
+            <input type="text" name="name" placeholder="Enter Name*" required />
+            <input type="email" name="email" placeholder="Enter Email*" required />
+            <textarea name="message" placeholder="Your Message"></textarea>
+            <button type="submit">Submit</button>
+        </form>
+        <p id="responseMessage"></p>
     </div>
 
-
     <script>
-        document.getElementById("myForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            let form = event.target;
-            let formData = new FormData(form);
+    document.getElementById("myForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    let form = event.target;
+    let formData = new FormData(form);
 
-            fetch("https://script.google.com/macros/s/AKfycbxSkJcY2g7R7w3NVJ62HdjAUKnawzlmtNyIl5eWCvWYh7iB3sjaGLw2MPVWFRnFooy8kw/exec", {
-                method: "POST",
-                body: formData
-            })
-            .then(response => response.text()) 
-            .then(data => {
-                alert("Data submitted successfully!");
-                document.getElementById("responseMessage").innerText = data;
-                form.reset();
-            })
-            .catch(error => {
-                alert("Error submitting data!");
-                console.error("Error:", error);
-            });
-        });
+    fetch("https://script.google.com/macros/s/AKfycbxSkJcY2g7R7w3NVJ62HdjAUKnawzlmtNyIl5eWCvWYh7iB3sjaGLw2MPVWFRnFooy8kw/exec", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.text()) // Change this if response is JSON: .json()
+    .then(data => {
+        console.log("Server Response:", data); // Log response for debugging
+        if (data.includes("Success")) {  // Check if success message is received
+            alert("Data submitted successfully!");
+            document.getElementById("responseMessage").innerText = "Form submitted successfully!";
+            form.reset();
+        } else {
+            alert("Submission failed. Please try again.");
+        }
+    })
+    .catch(error => {
+        alert("Error submitting data. Check the console.");
+        console.error("Fetch Error:", error);
+    });
+});
+
     </script>
 
 </body>
