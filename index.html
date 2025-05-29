@@ -17,6 +17,7 @@
             <form id="myForm">
                 <input type="text" name="name" placeholder="Enter Name*" required />
                 <input type="email" name="email" placeholder="Enter Email*" required />
+                <input type="text" name="subject" placeholder="Enter Subject*" required />
                 <textarea name="message" placeholder="Your Message"></textarea>
                 <button type="submit">Submit</button>
             </form>
@@ -30,7 +31,7 @@
     let form = event.target;
     let formData = new FormData(form);
 
-    fetch("https://script.google.com/macros/s/AKfycbwsjrCvoWVxdgq7g7KdHtMe6650ZpI61oTPftp2f5Mkz81rBeJpG4bVZaPp0Beu3IP-7A/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbyXc8WbMTDIDHRtNBFMVNmLW3CyMRza2mNFowMFsDxUZYKX6gwDRcrlXy8bEBJbgcdF/exec", {
         method: "POST",
         body: formData
     })
